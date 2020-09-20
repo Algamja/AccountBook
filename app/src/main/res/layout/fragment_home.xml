@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.HomeFragment">
+
+    <LinearLayout
+        android:id="@+id/home_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#21a4ff"
+        android:weightSum="10"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/home_prev_day"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_chevron_left_white_24dp" />
+
+        <TextView
+            android:id="@+id/home_tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="8"
+            android:gravity="center"
+            android:text="2020/09/17"
+            android:textColor="#ffffff"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/home_next_day"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_chevron_right_white_24dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/home_total_income"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/home_total_pay"
+        app:layout_constraintTop_toBottomOf="@+id/home_top">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="총 수입"
+            android:textColor="@color/colorIncome"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/home_tv_total_income"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="5,000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="원"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/home_total_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/home_add_button"
+        app:layout_constraintTop_toBottomOf="@+id/home_total_income">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="총 지출"
+            android:textColor="@color/colorPay"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/home_tv_total_pay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="5,000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="원"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/home_add_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="추가하기"
+        android:background="@drawable/add_button"
+        app:layout_constraintTop_toBottomOf="@+id/home_total_pay"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_add_button"
+        tools:listitem="@layout/item_money" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

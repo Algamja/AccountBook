@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    tools:context=".ui.AddItemActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioGroup
+            android:id="@+id/add_item_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                android:id="@+id/add_item_radio_button_income"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/radiobutton_style"
+                android:button="@drawable/income"
+                android:checked="true"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="수입"
+                android:textColor="@color/colorIncome" />
+
+            <RadioButton
+                android:id="@+id/add_item_radio_button_pay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/radiobutton_style"
+                android:button="@drawable/pay"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="지출"
+                android:textColor="@color/colorPay" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/add_item_input_money"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="end"
+            android:inputType="number"
+            app:layout_constraintEnd_toStartOf="@id/add_item_won"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/add_item_radio_group" />
+
+        <TextView
+            android:id="@+id/add_item_won"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="원"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/add_item_input_money"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/add_item_radio_group" />
+
+        <Button
+            android:id="@+id/add_item_add_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/add_button"
+            android:text="등록"
+            app:layout_constraintTop_toBottomOf="@+id/add_item_input_money" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
