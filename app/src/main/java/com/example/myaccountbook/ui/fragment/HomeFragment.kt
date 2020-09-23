@@ -19,18 +19,26 @@ import com.example.myaccountbook.util.AccountString
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import androidx.lifecycle.Observer
+import kotlinx.android.synthetic.main.fragment_calendar.*
+import java.util.*
+import kotlin.math.absoluteValue
 
 class HomeFragment : Fragment() {
 
     private lateinit var accountViewModel: AccountViewModel
+    private lateinit var adapter: AccountAdapter
+
+    private var income: Int = 0
+    private var pay: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_home, container, false)
-        setAccountHeader(rootView)
+
+        accountViewModel = ViewModelProviders.of(this).get(AccountViewModel::class.java)
+
         rootView.home_add_button.setOnClickListener {
             val date = home_tv_date.text
             val intent = Intent(rootView.context, AddItemActivity::class.java)
@@ -38,7 +46,7 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        val adapter =
+        adapter =
             AccountAdapter {
                 val intent = Intent(rootView.context, AddItemActivity::class.java)
                 intent.putExtra(
@@ -47,26 +55,74 @@ class HomeFragment : Fragment() {
                 intent.putExtra(AccountString().EXTRA_ACCOUNT_CATEGORY, it.category)
                 intent.putExtra(AccountString().EXTRA_ACCOUNT_MONEY, it.money)
                 intent.putExtra(AccountString().EXTRA_ACCOUNT_DATE, it.date)
+                startActivity(intent)
             }
+
+        var day = 0
+        val date = calculateDayMonthYear(day)
+        calculateDate(date)
+        setHeader(rootView, date)
+        calculateIncomeAndPay(rootView, date)
+
+        rootView.home_prev_day.setOnClickListener {
+            day -= 1
+            val date = calculateDayMonthYear(day)
+            calculateDate(date)
+            setHeader(rootView, date)
+            calculateIncomeAndPay(rootView, date)
+        }
+        rootView.home_next_day.setOnClickListener {
+            day += 1
+            val date = calculateDayMonthYear(day)
+            calculateDate(date)
+            setHeader(rootView, date)
+            calculateIncomeAndPay(rootView, date)
+        }
+
 
         val layoutManager = LinearLayoutManager(rootView.context)
         rootView.home_recycler_view.adapter = adapter
         rootView.home_recycler_view.layoutManager = layoutManager
         rootView.home_recycler_view.setHasFixedSize(true)
 
-        accountViewModel = ViewModelProviders.of(this).get(AccountViewModel::class.java)
-        accountViewModel.getAccount("%${rootView.home_tv_date.text}%")
-            .observe(this, Observer<List<AccountEntity>>() {
-                adapter.setAccounts(it)
-            })
         return rootView
     }
 
-    private fun setAccountHeader(rootView: View) {
-        val year = CalculateToday().year
-        val month = CalculateToday().month
-        val day = CalculateToday().day
+    private fun calculateIncomeAndPay(rootView:View, date: List<Int>){
+        income = 0
+        pay = 0
+        accountViewModel.getAccount("%${date[2]} / ${date[1]} / ${date[0]}%")
+            .observe(this, Observer<List<AccountEntity>>() {
+                it.forEach {account->
+                    if(account.category == AccountString().INCOME){
+                        income+=account.money
+                    }else{
+                        pay-=account.money
+                    }
+                }
+                rootView.home_tv_total_income.text = income.toString()
+                rootView.home_tv_total_pay.text = pay.toString()
+            })
+    }
 
-        rootView.home_tv_date.text = "$year / $month / $day"
+    private fun calculateDayMonthYear(day: Int):List<Int> {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, day)
+        val curDay = calendar.get(Calendar.DAY_OF_MONTH)
+        val curMonth = calendar.get(Calendar.MONTH) + 1
+        val curYear = calendar.get(Calendar.YEAR)
+
+        return listOf(curDay, curMonth, curYear)
+    }
+
+    private fun calculateDate(date: List<Int>) {
+        accountViewModel.getAccount("%${date[2]} / ${date[1]} / ${date[0]}%")
+            .observe(this, Observer<List<AccountEntity>>() {
+                adapter.setAccounts(it)
+            })
+    }
+
+    private fun setHeader(rootView:View, date:List<Int>){
+        rootView.home_tv_date.text = "${date[2]} / ${date[1]} / ${date[0]}"
     }
 }

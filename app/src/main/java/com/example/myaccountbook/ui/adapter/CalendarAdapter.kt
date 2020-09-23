@@ -1,6 +1,7 @@
 package com.example.myaccountbook.ui.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.view.LayoutInflater
@@ -11,13 +12,16 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.example.myaccountbook.R
+import com.example.myaccountbook.ui.AddItemActivity
+import com.example.myaccountbook.util.AccountString
 import kotlinx.android.synthetic.main.item_calendar.view.*
 import java.util.*
 
 class CalendarAdapter(
     private val context: Context,
     private val list: ArrayList<String>,
-    private val moneyDate: MutableMap<String, Int>?
+    private val moneyDate: MutableMap<String, Int>?,
+    private var date:String
 ) :
     BaseAdapter() {
 
@@ -54,6 +58,13 @@ class CalendarAdapter(
                 }
             }
         }
+
+        holder.layoutItemGridView.setOnClickListener {
+            val intent = Intent(context, AddItemActivity::class.java)
+            intent.putExtra(AccountString().EXTRA_ACCOUNT_DATE, date+" / ${holder.tvItemGridView.text}")
+            view.context.startActivity(intent)
+        }
+
         return view
     }
 

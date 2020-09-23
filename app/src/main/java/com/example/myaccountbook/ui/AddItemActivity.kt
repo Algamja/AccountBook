@@ -27,11 +27,12 @@ class AddItemActivity : AppCompatActivity() {
             && intent.hasExtra(AccountString().EXTRA_ACCOUNT_MONEY)
             && intent.hasExtra(AccountString().EXTRA_ACCOUNT_DATE)
         ) {
-            add_item_input_money.setText(intent.getStringExtra(AccountString().EXTRA_ACCOUNT_MONEY))
+            add_item_input_money.setText(intent.getIntExtra(AccountString().EXTRA_ACCOUNT_MONEY,0).toString())
+            add_item_input_money.setSelection(add_item_input_money.text.length)
             if (intent.getStringExtra(AccountString().EXTRA_ACCOUNT_CATEGORY) == AccountString().INCOME) {
-                add_item_radio_button_income.isSelected = true
+                add_item_radio_button_income.isChecked = true
             } else {
-                add_item_radio_button_pay.isSelected = true
+                add_item_radio_button_pay.isChecked = true
             }
             id = intent.getLongExtra(AccountString().EXTRA_ACCOUNT_ID, -1)
         }

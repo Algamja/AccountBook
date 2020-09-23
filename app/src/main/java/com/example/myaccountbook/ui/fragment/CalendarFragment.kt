@@ -1,5 +1,6 @@
 package com.example.myaccountbook.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,11 +10,13 @@ import androidx.lifecycle.ViewModelProviders
 
 import com.example.myaccountbook.R
 import com.example.myaccountbook.database.AccountEntity
+import com.example.myaccountbook.ui.AddItemActivity
 import com.example.myaccountbook.ui.adapter.CalendarAdapter
 import com.example.myaccountbook.ui.viewmodel.AccountViewModel
 import com.example.myaccountbook.util.AccountString
 import com.example.myaccountbook.util.CalculateToday
 import kotlinx.android.synthetic.main.fragment_calendar.view.*
+import kotlinx.android.synthetic.main.item_calendar.view.*
 import java.util.*
 import kotlin.math.absoluteValue
 
@@ -48,28 +51,19 @@ class CalendarFragment : Fragment() {
     }
 
     private fun calculateMonthAndYear(month: Int): List<Int> {
-        var curMonth = CalculateToday().month + month
-        var curYear = CalculateToday().year
-        if (curMonth <= 0) {
-            var year: Int = curMonth / 12
-            year = year.absoluteValue + 1
-            curMonth += 12 * year
-            curYear -= 1 * year
-        } else if (curMonth > 12) {
-            val year: Int = curMonth / 12
-
-            curMonth -= 12 * year
-            curYear += 1 * year
-        }
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.MONTH, month)
+        val curMonth = calendar.get(Calendar.MONTH) + 1
+        val curYear = calendar.get(Calendar.YEAR)
         return listOf<Int>(curMonth, curYear)
     }
 
     private fun calculateMoney(month: Int, rootView: View) {
-        money.clear()
         val monthAndYear = calculateMonthAndYear(month)
         accountViewModel = ViewModelProviders.of(this).get(AccountViewModel::class.java)
         accountViewModel.getAccount("%${monthAndYear[1]} / ${monthAndYear[0]}%")
             .observe(this, androidx.lifecycle.Observer<List<AccountEntity>> {
+                money.clear()
                 it.forEach { accountEntity ->
                     val date = accountEntity.date.split("${monthAndYear[1]} / ${monthAndYear[0]}")
                     if (date.size == 2) {
@@ -78,9 +72,9 @@ class CalendarFragment : Fragment() {
                             money[dateString] = 0
                         }
                         if (accountEntity.category == AccountString().INCOME) {
-                            money[dateString] = ((money[dateString]?:0).plus(accountEntity.money))
+                            money[dateString] = ((money[dateString] ?: 0).plus(accountEntity.money))
                         } else {
-                            money[dateString] = (money[dateString]?:0).minus(accountEntity.money)
+                            money[dateString] = (money[dateString] ?: 0).minus(accountEntity.money)
                         }
 
                     }
@@ -97,7 +91,7 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    private fun setCalendar(month: Int, rootView: View, moneyDate: MutableMap<String,Int>?) {
+    private fun setCalendar(month: Int, rootView: View, moneyDate: MutableMap<String, Int>?) {
         dayList.clear()
 
         val monthAndYear = calculateMonthAndYear(month)
@@ -113,7 +107,7 @@ class CalendarFragment : Fragment() {
         }
         setCalendarDate(mCal.get(Calendar.MONTH) + 1, mCal)
 
-        val adapter = CalendarAdapter(rootView.context, dayList, moneyDate)
+        val adapter = CalendarAdapter(rootView.context, dayList, moneyDate, "${monthAndYear[1]} / ${monthAndYear[0]}")
         rootView.gridview.adapter = adapter
     }
 }
