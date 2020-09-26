@@ -13,7 +13,7 @@
         android:gravity="center"
         android:text="수입"
         android:textColor="#5252FF"
-        android:textSize="23sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,6 @@
         android:ellipsize="end"
         android:gravity="right"
         android:maxLines="1"
-        android:text="500"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/home_item_won"
