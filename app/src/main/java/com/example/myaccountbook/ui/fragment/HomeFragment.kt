@@ -89,10 +89,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun calculateIncomeAndPay(rootView:View, date: List<Int>){
-        income = 0
-        pay = 0
         accountViewModel.getAccount("%${date[2]} / ${date[1]} / ${date[0]}%")
             .observe(this, Observer<List<AccountEntity>>() {
+                income = 0
+                pay = 0
                 it.forEach {account->
                     if(account.category == AccountString().INCOME){
                         income+=account.money
