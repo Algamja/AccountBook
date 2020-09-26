@@ -5,16 +5,14 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.myaccountbook.ui.fragment.CalendarFragment
 import com.example.myaccountbook.ui.fragment.HomeFragment
-import com.example.myaccountbook.ui.fragment.SettingsFragment
 
 class ViewPagerAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-    val TOTAL_PAGE_COUNT = 3
+    val TOTAL_PAGE_COUNT = 2
     override fun getItem(position: Int): Fragment {
         return when(position){
             0-> CalendarFragment()
-            1->HomeFragment()
-            else->SettingsFragment()
+            else->HomeFragment()
         }
     }
 

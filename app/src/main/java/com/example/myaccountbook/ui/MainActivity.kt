@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.calendar -> main_view_pager.currentItem = 0
                 R.id.home -> main_view_pager.currentItem = 1
-                R.id.setting -> main_view_pager.currentItem = 2
             }
             true
         }
