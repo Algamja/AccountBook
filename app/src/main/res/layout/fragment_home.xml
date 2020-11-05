@@ -10,7 +10,6 @@
         android:id="@+id/home_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#21a4ff"
         android:weightSum="10"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -19,7 +18,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_chevron_left_white_24dp" />
+            android:src="@drawable/ic_chevron_left" />
 
         <TextView
             android:id="@+id/home_tv_date"
@@ -27,16 +26,16 @@
             android:layout_height="50dp"
             android:layout_weight="8"
             android:gravity="center"
-            android:text="2020/09/17"
-            android:textColor="#ffffff"
-            android:textSize="20sp" />
+            android:textColor="@color/colorMain"
+            android:textSize="20sp"
+            android:fontFamily="@font/nanum_barunpen_b"/>
 
         <ImageView
             android:id="@+id/home_next_day"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_chevron_right_white_24dp" />
+            android:src="@drawable/ic_chevron_right" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,7 +53,7 @@
             android:text="총 수입"
             android:textColor="@color/colorIncome"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/nanum_barunpen_b"/>
 
         <TextView
             android:id="@+id/home_tv_total_income"
@@ -63,14 +62,18 @@
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:gravity="right"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:fontFamily="@font/nanum_barunpen_r"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:text="원"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:fontFamily="@font/nanum_barunpen_r"/>
     </LinearLayout>
 
     <LinearLayout
@@ -88,7 +91,7 @@
             android:text="총 지출"
             android:textColor="@color/colorPay"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:fontFamily="@font/nanum_barunpen_b" />
 
         <TextView
             android:id="@+id/home_tv_total_pay"
@@ -97,14 +100,18 @@
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:gravity="right"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:fontFamily="@font/nanum_barunpen_r"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:text="원"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="#000"
+            android:fontFamily="@font/nanum_barunpen_r"/>
     </LinearLayout>
 
     <Button
@@ -114,15 +121,27 @@
         android:text="추가하기"
         android:background="@drawable/add_button"
         android:layout_margin="15dp"
+        android:textColor="#FFF"
         app:layout_constraintTop_toBottomOf="@+id/home_total_pay"
+        android:fontFamily="@font/nanum_barunpen_r"
         />
+
+    <LinearLayout
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toBottomOf="@id/home_add_button"
+        app:layout_constraintBottom_toTopOf="@id/home_recycler_view"
+        android:background="#9E9E9E"
+        android:layout_margin="15dp"
+        android:orientation="horizontal" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/home_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_add_button"
+        app:layout_constraintTop_toBottomOf="@+id/line"
         tools:listitem="@layout/item_money" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

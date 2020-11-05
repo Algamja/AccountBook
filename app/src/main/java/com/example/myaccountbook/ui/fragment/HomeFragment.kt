@@ -89,7 +89,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun calculateIncomeAndPay(rootView:View, date: List<Int>){
-        accountViewModel.getAccount("%${date[2]} / ${date[1]} / ${date[0]}%")
+        accountViewModel.getAccount("%${date[2]}년 ${date[1]}월 ${date[0]}일%")
             .observe(this, Observer<List<AccountEntity>>() {
                 income = 0
                 pay = 0
@@ -116,13 +116,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun calculateDate(date: List<Int>) {
-        accountViewModel.getAccount("%${date[2]} / ${date[1]} / ${date[0]}%")
+        accountViewModel.getAccount("%${date[2]}년 ${date[1]}월 ${date[0]}일%")
             .observe(this, Observer<List<AccountEntity>>() {
                 adapter.setAccounts(it)
             })
     }
 
     private fun setHeader(rootView:View, date:List<Int>){
-        rootView.home_tv_date.text = "${date[2]} / ${date[1]} / ${date[0]}"
+        rootView.home_tv_date.text = "${date[2]}년 ${date[1]}월 ${date[0]}일"
     }
 }

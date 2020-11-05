@@ -42,11 +42,18 @@ class CalendarAdapter(
             holder = (contentView.tag) as ViewHolder
             view = contentView
         }
+
         holder.tvItemGridView.text = getItem(position).toString()
+        if(position%7==0){
+            holder.tvItemGridView.setTextColor(Color.RED)
+        }else if(position%7==6){
+            holder.tvItemGridView.setTextColor(Color.BLUE)
+        }
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             (moneyDate ?: mutableMapOf("" to 0)).forEach { (date, money) ->
-                if (date == getItem(position).toString()) {
+                if (date == getItem(position).toString()+"일") {
                     holder.tvMoneyItemGridView.text = money.toString()
 
                     if(money >=0){
@@ -61,7 +68,7 @@ class CalendarAdapter(
 
         holder.layoutItemGridView.setOnClickListener {
             val intent = Intent(context, AddItemActivity::class.java)
-            intent.putExtra(AccountString().EXTRA_ACCOUNT_DATE, date+" / ${holder.tvItemGridView.text}")
+            intent.putExtra(AccountString().EXTRA_ACCOUNT_DATE, date+" ${holder.tvItemGridView.text}")
             view.context.startActivity(intent)
         }
 

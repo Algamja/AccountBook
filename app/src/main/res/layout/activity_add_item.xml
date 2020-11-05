@@ -26,6 +26,7 @@
                 android:background="@drawable/radiobutton_style"
                 android:button="@drawable/income"
                 android:checked="true"
+                android:fontFamily="@font/nanum_barunpen_b"
                 android:gravity="center"
                 android:padding="15dp"
                 android:text="수입"
@@ -38,6 +39,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/radiobutton_style"
                 android:button="@drawable/pay"
+                android:fontFamily="@font/nanum_barunpen_b"
                 android:gravity="center"
                 android:padding="15dp"
                 android:text="지출"
@@ -53,26 +55,31 @@
             android:inputType="number"
             app:layout_constraintEnd_toStartOf="@id/add_item_won"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/add_item_radio_group" />
+            app:layout_constraintTop_toBottomOf="@id/add_item_radio_group"
+            android:fontFamily="@font/nanum_barunpen_r"/>
 
         <TextView
             android:id="@+id/add_item_won"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:textColor="#000"
             android:text="원"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@id/add_item_input_money"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_item_radio_group" />
+            app:layout_constraintTop_toBottomOf="@+id/add_item_radio_group"
+            android:fontFamily="@font/nanum_barunpen_r"/>
 
         <Button
             android:id="@+id/add_item_add_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:background="@drawable/income"
+            android:background="@drawable/submit_button"
             android:text="등록"
+            android:fontFamily="@font/nanum_barunpen_r"
+            android:textColor="#FFF"
             app:layout_constraintTop_toBottomOf="@+id/add_item_input_money" />
 
         <Button
@@ -80,9 +87,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:background="@drawable/pay"
+            android:background="@drawable/delete_button"
+            android:textColor="#FFF"
+            android:fontFamily="@font/nanum_barunpen_r"
             android:text="삭제"
-            app:layout_constraintTop_toBottomOf="@+id/add_item_add_button"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/add_item_add_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
